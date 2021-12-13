@@ -35,7 +35,7 @@ export default function List() {
                     onClick={()=> handleClick("left")}
                     style={{ display: !isMoved && "none" }}
 
-                />
+                /> 
                     <div className="container" ref={listRef}>
                         <ListItem index={0}/>
                         <ListItem index={1}/>

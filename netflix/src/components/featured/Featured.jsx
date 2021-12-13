@@ -1,6 +1,6 @@
 import './featured.scss';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+//import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+//import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export default function Featured({type}) {
     return (
@@ -43,11 +43,11 @@ export default function Featured({type}) {
             </span>
             <div className="buttons">
                 <button className='play'>
-                    <PlayArrowIcon />
+                   {/*  <PlayArrowIcon />*/}
                     <span>Play</span>
                 </button>
                 <button className='more'>
-                    <InfoOutlinedIcon />
+                   {/* <InfoOutlinedIcon /> */}
                     <span>More</span>
                 </button>
             </div>
