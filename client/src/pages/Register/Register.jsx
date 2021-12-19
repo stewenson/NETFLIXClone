@@ -17,6 +17,8 @@ export default function Register() {
         setPassword(passwordRef.current.value);
     }
 
+    console.log(password);
+
     return (
         <div className="register">
             

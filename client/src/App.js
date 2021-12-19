@@ -1,8 +1,8 @@
 import './App.scss';
-import Home from "./pages/Home/Home";
+import Register from "./pages/Register/Register";
 
 const App = () => {
-  return <Home />;
+  return <Register />;
 }
 
 export default App;
