@@ -1,19 +1,27 @@
+
+  
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const authRoute = require("./routes/auth");
 
 dotenv.config();
 
-// mondo db connection
-const mongose = require("mongoose");
-mongose
-    .connect(process.env.MONGO_URL, {
-        useNewUrlParser: true, 
-        useUnifiedTopology: true
-    })
-    .then(() => console.log("DB connection Successfull"))
-    .catch((err) => console.log(err));
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("DB Connection Successfull"))
+  .catch((err) => {
+    console.error(err);
+  });
 
-app.listen(8800, ()=>{
-    console.log("backend server is running")
+app.use(express.json());
+
+app.use("/api/auth", authRoute);
+
+app.listen(4000, () => {
+  console.log("Backend server is running!");
 });
