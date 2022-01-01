@@ -1,13 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './featured.scss';
+import { useEffect, useState } from "react";
+import axios from 'axios';
+
 //import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 //import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 export default function Featured({type}) {
+    const [content, setContent] = useState({});
+
+    useEffect(() => {
+        const getRandomContent = async () => {
+          try {
+            const res = await axios.get(`/movies/random?type=${type}`, {
+              headers: {
+                token:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYzg5MGI5YjliYTI1NzBlYmEwMmZkNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MTA0NjI2MCwiZXhwIjoxNjQxNDc4MjYwfQ.mgljGzli8j6KJHuE9R0tcUMRg5z49IYj30a6mJre6PY",
+            },
+            });
+            setContent(res.data[0]);
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        getRandomContent();
+      }, [type]);
+
     return (
         <div className='featured'>
             {type && (
                 <div className="category">
-                    <span>{type === "movie" ? "Movie" : "Series"}</span>
+                    <span>{type === "movies" ? "Movie" : "Series"}</span>
                     <select name="genre" id="genre">
                         <option>Genre</option>
                         <option value="adventure">Adventure</option>
@@ -27,19 +50,16 @@ export default function Featured({type}) {
                 </div>
             )}
        <img
-            src="https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+            src={content.img}
             alt=""
           />
           <div className="info">
             <img
-                src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1"
+                src={content.imgTitle}
                 alt=""
             />
             <span className='desc'>
-                Lorem ipsum dolorsadasdasdas Lorem ipsum dolorsadasdasdasLorem ipsum dolorsadasdasdas
-                Lorem ipsum dolorsadasdasdas Lorem ipsum dolorsadasdasdasLorem ipsum dolorsadasdasdas
-                Lorem ipsum dolorsadasdasdas Lorem ipsum dolorsadasdasdasLorem ipsum dolorsadasdasdas
-                Lorem ipsum dolorsadasdasdas Lorem ipsum dolorsadasdasdasLorem ipsum dolorsadasdasdas
+                {content.desc}
             </span>
             <div className="buttons">
                 <button className='play'>
