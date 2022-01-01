@@ -19,7 +19,7 @@ router.post("/", verify, async (req, res) => {
   });
 
   //UPDATE
-router.post("/:id", verify, async (req, res) => {
+router.put("/:id", verify, async (req, res) => {
     if (req.user.isAdmin) {
       try {
         const updateMovie = await Movie.findByIdAndUpdate(
@@ -53,7 +53,7 @@ router.delete("/:id", verify, async (req, res) => {
 });
 
   //GET
-router.delete("/:id", verify, async (req, res) => {
+router.get("/find/:id", verify, async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.id);
             res.status(200).json(movie)
@@ -62,8 +62,22 @@ router.delete("/:id", verify, async (req, res) => {
         }
 });
 
+  //GET ALL
+router.get("/", verify, async (req, res) => {
+    let movies;
+    if (req.user.isAdmin) {
+        try {
+            movies = await Movie.find();     // find all movie
+            res.status(200).json(movies)
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    } else {
+        res.status(403).json("You are not allowe!");
+    }
+});
   //GET RANDOM
-router.delete("/random", verify, async (req, res) => {
+router.get("/random", verify, async (req, res) => {
     const type = req.query.type;
     let movie;
     try {
